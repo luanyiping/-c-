@@ -1,38 +1,38 @@
 #include<stdio.h>
-// È·ÈÏÊ§°Ü
+// ç¡®è®¤å¤±è´¥
 //int main()
 //{
 //	char password[10] = { 0 };
-//	printf("ÇëÊäÈëÃÜÂë:");
+//	printf("è¯·è¾“å…¥å¯†ç :");
 //	scanf("%s", password);
-//	printf("ÇëÈ·ÈÏÃÜÂë(Y/N):");
+//	printf("è¯·ç¡®è®¤å¯†ç (Y/N):");
 //	int ch = getchar();
 //	if (ch == 'Y')
 //	{
-//		printf("È·ÈÏ³É¹¦\n");
+//		printf("ç¡®è®¤æˆåŠŸ\n");
 //	}
 //	else
 //	{
-//		printf("È·ÈÏÊ§°Ü\n");
+//		printf("ç¡®è®¤å¤±è´¥\n");
 //	}
 //}
 
-// ³É¹¦°¸Àı
+// æˆåŠŸæ¡ˆä¾‹
 int main()
 {
 	char password[20];
-	printf("ÇëÊäÈëÃÜÂë:");
+	printf("è¯·è¾“å…¥å¯†ç :");
 	scanf("%s",password);
-	printf("ÇëÈ·ÈÏÃÜÂë:(Y/N):");
+	printf("è¯·ç¡®è®¤å¯†ç :(Y/N):");
 	int ch = 0;
-	ch = getchar();
-	while ((ch = getchar()) != '\n'); // Ê¹ÓÃgetsĞèÒª½«¸ÃĞĞÈ¥µô£¬ÒòÎªgets½«\n×÷Îª½áÊø±êÖ¾£¬²¢½«Æä×ª»»³É'\0',»á³Ô»Ø³µ
+	while ((ch = getchar()) != '\n'); // ä½¿ç”¨getséœ€è¦å°†è¯¥è¡Œå»æ‰ï¼Œå› ä¸ºgetså°†\nä½œä¸ºç»“æŸæ ‡å¿—ï¼Œå¹¶å°†å…¶è½¬æ¢æˆ'\0',ä¼šåƒå›è½¦
+	ch=getchar();
 	if (ch == 'Y')
 	{
-		printf("È·ÈÏ³É¹¦\n");
+		printf("ç¡®è®¤æˆåŠŸ\n");
 	}
 	else
 	{
-		printf("È·ÈÏÊ§°Ü\n");
+		printf("ç¡®è®¤å¤±è´¥\n");
 	}
 }
