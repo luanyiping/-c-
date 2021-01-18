@@ -8,7 +8,7 @@ struct stack
 	int* top;
 	int stacksize;
 };
-//³õÊ¼»¯Õ»
+//åˆå§‹åŒ–æ ˆ
 int initstack(struct stack* s)
 {
 	s->base = (int*)malloc(sizeof(struct stack));
@@ -19,11 +19,11 @@ int initstack(struct stack* s)
 	s->top = s->base;
 	s->stacksize = STACK_INIT_SIZE;
 }
-//ÈëÕ»
+//å…¥æ ˆå…¥æ ˆ
 int push(struct stack *s, int e)
 {
 	struct stack* p;
-	if (s->top - s->base == s->stacksize) //ÉÏÒç
+	if (s->top - s->base == s->stacksize) //ä¸Šæº¢
 	{
 		p= (struct stack*)realloc(s->base, (STACK_INIT_SIZE + STACKINCEEMENT) * sizeof(int)); 
 		if (!p)
@@ -38,7 +38,7 @@ int push(struct stack *s, int e)
 	s->top++;
 	return 0;
 }
-//³öÕ»
+//å‡ºæ ˆ
 int pop(struct stack *s)
 {
 	if (s->base == s->top)
@@ -48,25 +48,25 @@ int pop(struct stack *s)
 	s->top--;
 	return *(s->top);
 }
-//ÅĞ¶ÏÕ»ÊÇ·ñÎª¿Õ
+//åˆ¤æ–­æ ˆæ˜¯å¦ä¸ºç©º
 void judgeNull(struct stack* s)
 {
 	if (s->top == s->base)
 	{
-		printf("´ËÕ»Îª¿ÕÕ»\n");
+		printf("æ­¤æ ˆä¸ºç©ºæ ˆ\n");
 	}
 	else
-		printf("´ËÕ»²»Îª¿Õ\n");
+		printf("æ­¤æ ˆä¸ä¸ºç©º\n");
 }
-//ÅĞ¶ÏÕ»ÊÇ·ñÂú
+//åˆ¤æ–­æ ˆæ˜¯å¦æ»¡
 void judgeFull(struct stack* s)
 {
 	if (s->top - s->base == s->stacksize)
 	{
-		printf("´ËÕ»Âú\n");
+		printf("æ­¤æ ˆæ»¡\n");
 	}
 	else
-		printf("´ËÕ»²»Âú\n");
+		printf("æ­¤æ ˆä¸æ»¡\n");
 }
 int main()
 {
