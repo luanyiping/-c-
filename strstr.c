@@ -3,6 +3,10 @@
 char* my_strstr(const char* s1,const char* s2)
 {
 	assert(s1 && s2);
+	if(*s2 == '\0')
+	{
+		return (char*)s1;
+	}
 	const char* cp = s1;
 	while (*cp)
 	{
