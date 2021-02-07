@@ -13,6 +13,7 @@ char* my_strcpy(char* dest, const char* src)
 }
 int main()
 {
+
 	char arr1[20] = "abcdef";
 	char arr2[] = "lkj";
 	printf("%s\n", strcpy(arr1, arr2));
