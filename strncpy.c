@@ -17,6 +17,7 @@ char* my_strncpy(char* dest, const char* src,size_t count)
 }
 int main()
 {
+
 	char arr1[] = "abcdefghi";
 	char arr2[] = "bit";
 	my_strncpy(arr1, arr2, 6);
