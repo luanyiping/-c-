@@ -3,11 +3,12 @@
 #include<assert.h>
 void* my_memmove(void* dest,const void* src, size_t count)
 {
+	
 	assert(dest && src);
 	void* ret = dest;
 	if (dest < src)
 	{
-		// 从前向后拷贝
+		// 浠庡墠鍚戝悗鎷疯礉
 		while (count--)
 		{
 			*(char*)dest = *(char*)src;
@@ -17,7 +18,7 @@ void* my_memmove(void* dest,const void* src, size_t count)
 	}
 	else
 	{
-		// 从后向前拷贝
+		// 浠庡悗鍚戝墠鎷疯礉
 		while (count--)
 		{
 			*((char*)dest + count) = *((char*)src + count);
@@ -36,5 +37,5 @@ int main()
 	}
 }
 
-// memcpy用来拷贝互不相关的内存块
-// memmove可以!
+// memcpy鐢ㄦ潵鎷疯礉浜掍笉鐩稿叧鐨勫唴瀛樺潡
+// memmove鍙互!
