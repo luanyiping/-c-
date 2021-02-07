@@ -15,6 +15,8 @@ void* my_memcpy(void* dest, void* src, size_t count)
 }
 void test1()
 {
+
+
 	int arr1[] = { 1,2,3,4,5,6 };
 	int arr2[20] = { 0 };
 	my_memcpy(arr2, arr1, 16);
