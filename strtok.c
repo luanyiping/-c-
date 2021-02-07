@@ -3,6 +3,7 @@
 #include<string.h>
 int main()
 {
+
 	char arr1[] = "luanyiping@33492586487.com";
 	char arr2[30] = { 0 };
 	strcpy(arr2, arr1);
@@ -17,13 +18,13 @@ int main()
 
 // char* strtok(char* str, const char* sep);
 
-//��һ������ָ��һ���ַ�������������0�����߶����sep�ַ�����һ�����߶���ָ����ָ�ı�ǡ�
+//第一个参数指定一个字符串，它包含了0个或者多个由sep字符串中一个或者多个分隔符分割的标记。
 
-// strtok�����ҵ�str�е���һ����ǣ��������� \0 ��β������һ��ָ�������ǵ�ָ�롣��ע��strtok�������
-// �䱻�������ַ�����������ʹ��strtok�����зֵ��ַ���һ�㶼����ʱ���������ݲ��ҿ��޸ġ���
+// strtok函数找到str中的下一个标记，并将其用 \0 结尾，返回一个指向这个标记的指针。（注：strtok函数会改
+// 变被操作的字符串，所以在使用strtok函数切分的字符串一般都是临时拷贝的内容并且可修改。）
 
-// strtok�����ĵ�һ��������Ϊ NULL ���������ҵ�str�е�һ����ǣ�strtok���������������ַ����е�λ�á�
+// strtok函数的第一个参数不为 NULL ，函数将找到str中第一个标记，strtok函数将保存它在字符串中的位置。
 
-// strtok�����ĵ�һ������Ϊ NULL ����������ͬһ���ַ����б������λ�ÿ�ʼ��������һ����ǡ�
+// strtok函数的第一个参数为 NULL ，函数将在同一个字符串中被保存的位置开始，查找下一个标记。
 
-// ����ַ����в����ڸ���ı�ǣ��򷵻� NULL ָ�롣
+// 如果字符串中不存在更多的标记，则返回 NULL 指针。
