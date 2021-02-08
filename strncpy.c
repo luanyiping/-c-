@@ -19,6 +19,7 @@ int main()
 {
 
 	char arr1[] = "abcdefghi";
+
 	char arr2[] = "bit";
 	my_strncpy(arr1, arr2, 6);
 	printf("%s\n", arr1);
