@@ -5,6 +5,7 @@ int main()
 {
 
 	char arr1[] = "luanyiping@33492586487.com";
+
 	char arr2[30] = { 0 };
 	strcpy(arr2, arr1);
 	char* p = "@.";
