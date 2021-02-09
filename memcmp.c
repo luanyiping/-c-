@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<string.h>
+
+
 int main()
 {
 	int arr1[] = { 1,3,3,4,5 };
