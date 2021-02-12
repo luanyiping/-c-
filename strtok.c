@@ -19,6 +19,7 @@ int main()
 
 // char* strtok(char* str, const char* sep);
 
+
 //第一个参数指定一个字符串，它包含了0个或者多个由sep字符串中一个或者多个分隔符分割的标记。
 
 // strtok函数找到str中的下一个标记，并将其用 \0 结尾，返回一个指向这个标记的指针。（注：strtok函数会改
