@@ -15,6 +15,7 @@ char* my_strcat(char* dest, const char* src)
 int main()
 {
 	char arr1[20] = "hello ";
+	
 	char arr2[] = "world";
 	printf("%s\n", my_strcat(arr1, arr2));
 }
