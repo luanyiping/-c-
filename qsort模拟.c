@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+
 void print_arr(int arr[], int sz)
 {
 	int i = 0;
@@ -10,7 +11,7 @@ void print_arr(int arr[], int sz)
 	}
 	printf("\n");
 }
-// Ã°ÅİÅÅĞò
+// å†’æ³¡æ’åº
 void bubble_sort(int arr[], int sz)
 {
 	int i = 0;
@@ -40,16 +41,16 @@ int main()
 	print_arr(arr, sz);
 }
 
-// qsort º¯ÊıÔ­ĞÍ
+// qsort å‡½æ•°åŸå‹
 //void qsort(void* base,
 //		   size_t num,
 //		   size_t width,
 //	       int (*cmp) (const void* e1, const void* e2)
 //	      );
- // ÅÅĞòÕûĞÎ
+ // æ’åºæ•´å½¢
 int cmp(const void* e1, const void* e2)
 {
-	return (*(int*)e1 - *(int*)e2);  // ÉıĞòÅÅÁĞ 
+	return (*(int*)e1 - *(int*)e2);  // å‡åºæ’åˆ— 
 }
 void test1()
 {
@@ -59,7 +60,7 @@ void test1()
 	print_arr(arr, sz);
 }
 
- // ÅÅĞò½á¹¹Ìå
+ // æ’åºç»“æ„ä½“
 struct stu
 {
 	char name[20];
@@ -71,7 +72,7 @@ int cmp_by_age(const void* e1, const void* e2)
 }
 void test2()
 {
-	struct stu arr[] = { {"ÕÅÈı",25},{"ÀîËÄ",20},{"ÍõÎå",22} };
+	struct stu arr[] = { {"å¼ ä¸‰",25},{"æå››",20},{"ç‹äº”",22} };
 	int sz = sizeof(arr) / sizeof(arr[0]);
 	qsort(arr, sz, sizeof(arr[0]), cmp_by_age);
 }
@@ -93,10 +94,10 @@ int main()
 	test3();
 }
 
-// Ê¹ÓÃ»Øµ÷º¯Êı£¬Ä£ÄâÊµÏÖqsort(²ÉÓÃÃ°ÅİµÄ·½Ê½)
+// ä½¿ç”¨å›è°ƒå‡½æ•°ï¼Œæ¨¡æ‹Ÿå®ç°qsort(é‡‡ç”¨å†’æ³¡çš„æ–¹å¼)
 int cmp(const void* e1, const void* e2)
 {
-	return (*(int*)e1 - *(int*)e2);  // ÉıĞòÅÅÁĞ 
+	return (*(int*)e1 - *(int*)e2);  // å‡åºæ’åˆ— 
 }
 void my_swap(char* bf1, char* bf2, int width)
 {
