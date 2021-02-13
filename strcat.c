@@ -3,7 +3,6 @@
 char* my_strcat(char* dest, const char* src)
 {
 	assert(dest && src);
-
 	char* ret = dest;
 	while (*dest)
 	{
