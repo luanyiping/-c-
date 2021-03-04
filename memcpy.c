@@ -4,6 +4,7 @@
 
 void* my_memcpy(void* dest, void* src, size_t count)
 {
+	
 	void* ret = dest;
 	assert(dest && src);
 	while (count--)
