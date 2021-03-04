@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<assert.h>
+
 void* my_memcpy(void* dest, void* src, size_t count)
 {
 	void* ret = dest;
