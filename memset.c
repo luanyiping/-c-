@@ -9,5 +9,6 @@ int main()
 	{
 		printf("%c ",arr[i]);
 	}
+	
 }
 
