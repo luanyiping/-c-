@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
 void print_arr(int arr[], int sz)
 {
 	int i = 0;
