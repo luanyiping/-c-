@@ -3,7 +3,6 @@
 #include<string.h>
 void print_arr(int arr[], int sz)
 {
-	
 	int i = 0;
 	for (i = 0; i < sz; i++)
 	{
