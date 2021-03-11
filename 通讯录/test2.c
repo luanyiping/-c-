@@ -1,73 +1,70 @@
-#include"Contect.h"
+#define  _CRT_SECURE_NO_WARNINGS 1
+#include "contact.h"
+ 
 void menu()
 {
-	printf("**************************************\n");
-	printf("********1 .Add     2.Delete **********\n");
-	printf("********3 .Search  4.Modity **********\n");
-	printf("********5 .Show    6 .Empty **********\n");
-	printf("********* 7 .SortByname **************\n");
-	printf("********** 0 .exit *******************\n");
+	printf("*********************************\n");
+	printf("*****       CONTACT         *****\n");
+	printf("*****   1.ADD      2.DEL    *****\n");
+	printf("*****   3.MODIFY   4.SEARCH *****\n");
+	printf("*****   5.SHOW     6.SORT   *****\n");
+	printf("*****   7.EMPTY    0.Exit   *****\n");
+	printf("*****	8.Save              *****\n");
+ 
 }
-enum Choice
-{
-	Add = 1,
-	Delete,
-	Search,
-	Modity,
-	Show,
-	Empty,
-	SortByname
-};
-int FindPeople(struct Contect* pc)
-{
-	char name[NAME_MAX] = { 0 };
-	scanf("%s", name);
-	int i = 0;
-	for (i = 0; i < pc->size; i++)
-	{
-		if (strcmp(pc->data[i].name, name) == 0)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
-int main()
-{
+void test()
+{	
 	int input = 0;
-	struct Contect con;
-	ContestInit(&con);
-	do
+	Contact con;
+	InitContact(&con);
+	do 
 	{
 		menu();
-		printf("请输入选择 : ");
-		scanf("%d", &input);
-		switch (input)
+		printf("璇烽�夋嫨>>>");
+		scanf("%d",&input);
+		if (input<0 && input>9)
 		{
-		case Add:
-			ContectAdd(&con);
-			break;
-		case Delete:
-			ContectDelete(&con);
-			break;
-		case Search:
-			ContectSearch(&con);
-			break;
-		case Modity:
-			ContectModity(&con);
-			break;
-		case Show:
-			ContectShow(&con);
-			break;
-		case Empty:
-			ContectEmpty(&con);
-			break;
-		case SortByname:
-			ContectSort(&con);
-			break;
-		default :
-			printf("退出通讯录\n");
-			break;
+			printf("1234\n");
+			perror("閫夋嫨閿欒");
 		}
-	} while (input);
+		else
+		{
+			switch (input)
+			{
+			case EXIT:
+				DestroyContact(&con);
+				return;
+			case ADD:
+				AddContact(&con);
+				break;
+			case DEL:
+				DelContact(&con);
+				break;
+			case MODIFY:
+				ModifyContact(&con);
+				break;
+			case SEARCH:
+				SearchContact(&con);
+				break;
+			case SHOW:
+				ShowContact(&con);
+				break;
+			case SORT:
+				Sort_Name(&con);
+				break;
+			case EMPTY:
+				EmptyContact(&con);
+				break;
+			case SAVE:
+				SaveContact(&con);
+			}
+		}
+		
+	} while (1);
+}
+ 
+int main()
+{	
+	test();
+	return 0;
 }
