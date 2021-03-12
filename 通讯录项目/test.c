@@ -1,6 +1,7 @@
 #include"Contect.h"
 void menu()
 {
+	
 	printf("**************************************\n");
 	printf("********1 .Add     2.Delete **********\n");
 	printf("********3 .Search  4.Modity **********\n");
@@ -40,7 +41,7 @@ int main()
 	do
 	{
 		menu();
-		printf("������ѡ�� : ");
+		printf("ÇëÊäÈëÑ¡Ôñ : ");
 		scanf("%d", &input);
 		switch (input)
 		{
@@ -66,7 +67,7 @@ int main()
 			ContectSort(&con);
 			break;
 		default:
-			printf("�˳�ͨѶ¼\n");
+			printf("ÍË³öÍ¨Ñ¶Â¼\n");
 			break;
 		}
 	} while (input);
