@@ -1,297 +1,166 @@
-#define  _CRT_SECURE_NO_WARNINGS 1
-#include "contact.h"
- 
- 
-int check_capacity(pContact p)
+#include"Contect.h"
+void ContestInit(struct Contect* pc)
 {
-	if (p->sz == p->capacity)
+	pc->data = (PeoInfor*)malloc(sizeof(PeoInfor) * PEO_INIT);
+	if (pc->data == NULL)
 	{
-		PeoInfo*tmp = realloc(p->data,(p->capacity+DEFAULT_INC)*sizeof(PeoInfo));
-		if (tmp != NULL)
+		printf("分配内存失败\n");
+		exit(-1);
+	}
+	pc->size = 0;
+	pc->capacity = PEO_INIT;
+}
+void ContectAdd(struct Contect* pc)
+{
+	if (pc->data == NULL)
+	{
+		ContestInit(pc);
+	}
+	if (pc->size == pc->capacity)
+	{
+		PeoInfor* ptr = (PeoInfor*)realloc(pc->data, sizeof(PeoInfor) * (pc->capacity + 2));
+		if (ptr == NULL)
 		{
-			p->data = tmp;
-			p->capacity += DEFAULT_INC;
-		//	printf("增容成功\n");
+			printf("增容失败\n");
+			exit(-1);
+		}
+		pc->data = ptr;
+		pc->capacity += 2;
+		printf("增容成功\n\n");
+	}
+	printf("请输入联系人的姓名:");
+	scanf("%s", pc->data[pc->size].name);
+	printf("请输入联系人的性别:");
+	scanf("%s", pc->data[pc->size].sex);
+	printf("请输入联系人的年龄:");
+	scanf("%d", &pc->data[pc->size].age);
+	printf("请输入联系人的电话:");
+	scanf("%s", pc->data[pc->size].tel);
+	printf("请输入联系人的住址:");
+	scanf("%s", pc->data[pc->size].addr);
+	pc->size++;
+	printf("添加成功\n\n");
+}
+void ContectShow(struct Contect* pc)
+{
+	if (pc->size == 0)
+	{
+		printf("通讯录里没有联系人\n");
+	}
+	else
+	{
+		printf("%s\t%s\t%s\t%-15s\t%-15s\n", "姓名", "性别", "年龄", "电话", "地址");
+		int i = 0;
+		for (i = 0; i < pc->size; i++)
+		{
+			printf("%s\t", pc->data[i].name);
+			printf("%s\t", pc->data[i].sex);
+			printf("%d\t", pc->data[i].age);
+			printf("%-15s\t", pc->data[i].tel);
+			printf("%-15s\t", pc->data[i].addr);
+			printf("\n");
+		}
+		printf("\n");
+
+	}
+}
+void ContectDelete(struct Contect* pc)
+{
+	if (pc->size == 0)
+	{
+		printf("通讯录中为空\n\n");
+	}
+	else
+	{
+		printf("请输入要删除人的姓名 :");
+		int pos = FindPeople(pc);
+		if (pos == -1)
+		{
+			printf("通讯录中无此人\n\n");
 		}
 		else
 		{
-			return 1;
-		}
-	}
-	return 0;
-}
- 
-void LoadContact(pContact p)
-{
-	FILE *pf = fopen("contact.dat","rb");
-	PeoInfo tmp = {0};
-	if (pf == NULL)
-	{
-		perror("open contact fail");
-		exit(EXIT_FAILURE);
-	}
-	while (fread(&tmp,sizeof(PeoInfo),1,pf))
-	{
-		check_capacity(p);
-		p->data[p->sz++] = tmp;
-	}
-	fclose(pf);
-	pf = NULL;
-}
- 
-void InitContact(pContact p)
-{
-	assert(p != NULL);
-	p->data = (PeoInfo*)malloc(DEFAULT_SZ*sizeof(PeoInfo));
-	
-	if (p->data == NULL)
-	{
-		//printf("%s\n",strerror(errno));
-		perror("InitContact:malloc");
-		exit(EXIT);
-	}
-	memset(p->data,0,DEFAULT_SZ*sizeof(PeoInfo));
-	p->sz = 0;
-	p->capacity = DEFAULT_SZ;
-	LoadContact(p);
-}
- 
-void AddContact(pContact p)
-{
-	if(check_capacity(p))
-	{
-		return ;
-	}
-		printf("请输入姓名>>>");
-		scanf("%s",p->data[p->sz].name);
-		printf("请输入年龄>>>");
-		scanf("%d",&(p->data[p->sz].age));
-		printf("请输入性别>>>");
-		scanf("%s",p->data[p->sz].sex);
-		printf("请输入地址>>>");
-		scanf("%s",p->data[p->sz].addr);
-		printf("请输入电话>>>");
-		scanf("%s",p->data[p->sz].tele);
-		p->sz++;
-		printf("添加成功\n");
- 
-}
- 
-static int FindEntry(char* c,pContact p)
-{
-	int i = 0;
-	for (i=0;i<p->sz;i++)
-	{
-		if (strcmp(c,p->data[i].name) == 0)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
- 
-void DelContact(pContact p)
-{
-	char name[NAME_MAX];
-	int ret = 0;
-	printf("请输入删除人的姓名>>>");
-	scanf("%s",name);
-	ret = FindEntry(name,p);
-	if (ret == -1)
-	{
-		printf("要删除的人不存在\n");
-	}
-	else
-	{
-		int i = 0;
-		for (i=ret;i<p->sz-1;i++)
-		{
-			p->data[i] = p->data[i+1];
-		}
-		p->sz--;
-		printf("删除成功\n");
-	}
-}
- 
-void ModifyContact(pContact p)
-{
-	int ret = 0;
-	char name[NAME_MAX];
-	printf("请输入修改人的姓名>>>");
-	scanf("%s",name);
-	ret = FindEntry(name,p);
-	if (ret == -1)
-	{
-		printf("要修改的人不存在\n");
-	}
-	else
-	{
-		printf("\n\t\tContact\n");
-		printf("%5s\t%s\t%2s\t%5s\t%5s\t\n",
-			"name","age","sex","addr","tele");
-		printf("%5s\t%d\t%3s\t%5s\t%5s\t\n",
-			p->data[ret].name,
-			p->data[ret].age,
-			p->data[ret].sex,
-			p->data[ret].addr,
-			p->data[ret].tele);
-		printf("请输入修改后的姓名>>>");
-		scanf("%s",p->data[ret].name);
-		printf("请输入修改后的年龄>>>");
-		scanf("%d",&(p->data[ret].age));
-		printf("请输入修改后的性别>>>");
-		scanf("%s",p->data[ret].sex);
-		printf("请输入修改后的地址>>>");
-		scanf("%s",p->data[ret].addr);
-		printf("请输入修改后的电话>>>");
-		scanf("%s",p->data[ret].tele);
- 
-		printf("修改成功\n");
-	}
-}
- 
-void SearchContact(pContact p)
-{
-	int ret = 0;
-	char name[NAME_MAX];
-	printf("请输入查找人的姓名>>>");
-	scanf("%s",name);
-	ret = FindEntry(name,p);
-	if (ret == -1)
-	{
-		printf("没有该联系人\n");
-	}
-	else
-	{
-		printf("\n\t\tContact\n");
-		printf("%5s\t%s\t%2s\t%5s\t%5s\t\n",
-			"name","age","sex","addr","tele");
-		printf("%5s\t%d\t%3s\t%5s\t%5s\t\n",
-			p->data[ret].name,
-			p->data[ret].age,
-			p->data[ret].sex,
-			p->data[ret].addr,
-			p->data[ret].tele);
-	}
- 
-}
- 
-void ShowContact(const pContact p)
-{
-	int i = 0;
-	//int ret = 0;
-	//for (i=0;i<p->sz;i++)
-	//{
-	//	if (p->data[0].name == NULL)
-	//	{
-	//		 ret = 1;
-	//	}
-	//}
-	//if(ret == 1)
-	//{
-	//	printf("没有任何联系人");
-	//}
-	//else
-	//{
-		printf("\n\t\tContact\n");
-		printf("%5s\t%s\t%2s\t%5s\t%5s\t\n",
-			"name","age","sex","addr","tele");
- 
-		for (i=0;i<p->sz;i++)
-		{
-			printf("%5s\t%d\t%3s\t%5s\t%5s\t\n",
-				p->data[i].name,
-				p->data[i].age,
-				p->data[i].sex,
-				p->data[i].addr,
-				p->data[i].tele);
-		}
-	//}
-	
-}
- 
-void EmptyContact(pContact p)
-{
-	int i = 0;
-	if (p->sz == 0)
-	{
-		printf("没有联系人\n");
-	}
-	else
-	{
-		free(p->data);
-		p->sz = 0;
-		p->capacity = 0;
-		p->data = NULL;
-		printf("清空成功\n");
-	}
-}
- 
-//void SortContact(char* c,pContact p)
-//{
-//	int i ,j = 0;
-//	PeoInfo  tmp ;
-//	for (i=0;i<p->sz;i++)
-//	{
-//		for (j=0;j<p->sz;j++)
-//		{
-//			if (p->data[j].age < p->data[j+1].age)
-//			{
-//				tmp = p->data[j];
-//				p->data[j] = p->data[j+1];
-//				p->data[j+1] = tmp;
-//			}
-//		}
-//	}
-//}
-//
- 
-void Sort_Name(pContact p)   //以名字排序所有联系人
-{
-	int i = 0;
-	int j = 0;
-	int flag = 0;
-	printf("以名字进行排序(a-->z)\n");
-	while(1)
-	{
-		flag = 0;
-		for (j = 0; j < p->sz - 1; j++)
-		{
-			if (strcmp(p->data[j].name, p->data[j + 1].name)>0)
+			int j = pos;
+			for (; j < pc->size - 1; j++)
 			{
-				PeoInfo tmp =  p->data[j];
-				p->data[j] = p->data[j + 1];
-				p->data[j + 1] = tmp;
-				flag = 1;
+				pc->data[j] = pc->data[j + 1];
 			}
+			pc->size--;
+			printf("删除成功\n\n");
 		}
-		if (flag == 0)
-			break;
 	}
 }
- 
-void SaveContact(pContact p)
+void ContectSearch(struct Contect* pc)
 {
-	FILE *pf = fopen("contact.dat","w");
-	int i = 0;
-	if (pf == NULL)
+	if (pc->size == 0)
 	{
-		perror("open contact fail");
-		exit(EXIT_FAILURE);
+		printf("通讯录中为空\n\n");
 	}
-	for (i=0;i<p->sz;i++)
+	else
 	{
-		fwrite(&(p->data[i]),sizeof(PeoInfo),1,pf);
+		printf("请输入要查找人的姓名 :");
+		int pos = FindPeople(pc);
+		if (pos == -1)
+		{
+			printf("通讯录中无此人\n\n");
+		}
+		else
+		{
+			printf("成功找到\n\n");
+			printf("%s\t%s\t%s\t%-15s\t%-15s\n", "姓名", "性别", "年龄", "电话", "地址");
+			printf("%s\t", pc->data[pos].name);
+			printf("%s\t", pc->data[pos].sex);
+			printf("%d\t", pc->data[pos].age);
+			printf("%-15s\t", pc->data[pos].tel);
+			printf("%-15s\t", pc->data[pos].addr);
+			printf("\n\n");
+		}
 	}
-	printf("Save success\n");
-	fclose(pf);
-	pf = NULL;
 }
- 
-void DestroyContact(pContact p)
+void ContectModity(struct Contect* pc)
 {
-	free(p->data);
-	p->capacity = 0;
-	p->data = NULL;
-	p->sz = 0;
+	if (pc->size == 0)
+	{
+		printf("通讯录为空\n\n");
+	}
+	else
+	{
+		printf("请输入要修改人的姓名 :");
+		int pos = FindPeople(pc);
+		if (pos == -1)
+		{
+			printf("通讯录中无此人\n\n");
+		}
+		else
+		{
+			printf("请输入修改后的姓名:");
+			scanf("%s", pc->data[pos].name);
+			printf("请输入修改后的性别:");
+			scanf("%s", pc->data[pos].sex);
+			printf("请输入修改后的年龄:");
+			scanf("%d", &pc->data[pos].age);
+			printf("请输入修改后的电话:");
+			scanf("%s", pc->data[pos].tel);
+			printf("请输入修改后的住址:");
+			scanf("%s", pc->data[pos].addr);
+			printf("\n修改成功\n\n");
+		}
+	}
+}
+void ContectEmpty(struct Contect* pc)
+{
+	free(pc->data);
+	pc->data = NULL;
+	pc->size = 0;
+	pc->capacity = 0;
+}
+int cmp_by_name(const void* elem1, const void* elem2)
+{
+	return strcmp(((struct PeopleInfor*)elem1)->name, ((struct PeopleInfor*)elem2)->name);
+}
+void ContectSort(struct Contect* pc)
+{
+	qsort(pc->data, pc->size, sizeof(pc->data[0]), cmp_by_name);
+	printf("排序成功\n\n");
+	ContectShow(pc);
 }
