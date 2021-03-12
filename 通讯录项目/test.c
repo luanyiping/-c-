@@ -1,7 +1,6 @@
 #include"Contect.h"
 void menu()
 {
-	
 	printf("**************************************\n");
 	printf("********1 .Add     2.Delete **********\n");
 	printf("********3 .Search  4.Modity **********\n");
