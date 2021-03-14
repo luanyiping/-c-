@@ -24,7 +24,6 @@ void test1()
 		printf("%d ", arr2[i]);
 	}
 }
-
 int main()
 {
 	 test1();
