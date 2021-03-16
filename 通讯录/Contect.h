@@ -8,6 +8,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<errno.h>
 typedef struct PeopleInfor
 {
 	char name[NAME_MAX];
@@ -31,3 +32,6 @@ void ContectModity(struct Contect* pc);
 void ContectEmpty(struct Contect* pc);
 void ContectSort(struct Contect* pc);
 int FindPeople(struct Contect* pc);
+void ContectSave(struct Contect* pc);
+void LoadContect(struct Contect* pc);
+void CheckCapacity(struct Contect* pc);
