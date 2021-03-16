@@ -9,13 +9,31 @@ void ContestInit(struct Contect* pc)
 	}
 	pc->size = 0;
 	pc->capacity = PEO_INIT;
+
+	// 加载信息
+	LoadContect(pc);
 }
-void ContectAdd(struct Contect* pc)
+void LoadContect(struct Contect* pc)
 {
-	if (pc->data == NULL)
+	FILE* pf = fopen("data.txt", "rb");
+	if (pf == NULL)
 	{
-		ContestInit(pc);
+		printf("%s\n", strerror(errno));
+		return;
 	}
+	PeoInfor tmp = { 0 };
+	while (fread(&tmp, sizeof(pc->data[0]), 1, pf))
+	{
+		// 检查容量
+		CheckCapacity(pc);
+		pc->data[pc->size] = tmp;
+		pc->size++;
+	}
+	fclose(pf);
+	pf = NULL;
+}
+void CheckCapacity(struct Contect* pc)
+{
 	if (pc->size == pc->capacity)
 	{
 		PeoInfor* ptr = (PeoInfor*)realloc(pc->data, sizeof(PeoInfor) * (pc->capacity + 2));
@@ -28,6 +46,14 @@ void ContectAdd(struct Contect* pc)
 		pc->capacity += 2;
 		printf("增容成功\n\n");
 	}
+}
+void ContectAdd(struct Contect* pc)
+{
+	if (pc->data == NULL)
+	{
+		ContestInit(pc);
+	}
+	CheckCapacity(pc);
 	printf("请输入联系人的姓名:");
 	scanf("%s", pc->data[pc->size].name);
 	printf("请输入联系人的性别:");
@@ -163,4 +189,21 @@ void ContectSort(struct Contect* pc)
 	qsort(pc->data, pc->size, sizeof(pc->data[0]), cmp_by_name);
 	printf("排序成功\n\n");
 	ContectShow(pc);
+}
+void ContectSave(struct Contect* pc)
+{
+	FILE* pf = fopen("data.txt", "wb");
+	if (pf == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return;
+	}
+	int i = 0;
+	for (i = 0; i < pc->size; i++)
+	{
+		fwrite(&(pc->data[i]), sizeof(pc->data[0]), 1, pf);
+	}
+	fclose(pf);
+	pf = NULL;
+	printf("保存成功\n");
 }
