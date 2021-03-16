@@ -1,12 +1,12 @@
 #include"Contect.h"
 void menu()
 {
-	printf("**************************************\n");
-	printf("********1 .Add     2.Delete **********\n");
-	printf("********3 .Search  4.Modity **********\n");
-	printf("********5 .Show    6 .Empty **********\n");
-	printf("********* 7 .SortByname **************\n");
-	printf("********** 0 .exit *******************\n");
+	printf("*******************************************\n");
+	printf("********1 .Add     2.Delete      **********\n");
+	printf("********3 .Search  4.Modity      **********\n");
+	printf("********5 .Show    6 .Empty      **********\n");
+	printf("********7 .SortByname  8.Save **************\n");
+	printf("********** 0 .exit *************************\n");
 }
 enum Choice
 {
@@ -16,7 +16,8 @@ enum Choice
 	Modity,
 	Show,
 	Empty,
-	SortByname
+	SortByname,
+	Save
 };
 int FindPeople(struct Contect* pc)
 {
@@ -64,6 +65,9 @@ int main()
 			break;
 		case SortByname:
 			ContectSort(&con);
+			break;
+		case Save :
+			ContectSave(&con);
 			break;
 		default:
 			ContectEmpty(&con);
