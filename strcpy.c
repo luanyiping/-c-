@@ -2,7 +2,6 @@
 #include<stdio.h>
 #include<assert.h>
 #include<string.h>
-
 char* my_strcpy(char* dest, const char* src)
 {
 	assert(dest && src);
